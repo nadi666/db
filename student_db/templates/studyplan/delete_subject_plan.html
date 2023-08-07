@@ -1,0 +1,15 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/delete.css' %}">
+<div class="main">
+  <h1>Удалить "{{ subject_plan.subject }}"?</h1>
+  <div class="forms">
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit">Удалить</button>
+    </form>
+  </div>
+  <div class="links"><a href="{% url 'student:all_plans' %}">Закрыть</a></div>
+</div>
+{% endblock content %}

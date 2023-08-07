@@ -1,0 +1,32 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/list.css' %}">
+ <div class="func">
+    <h1>учебный план</h1>
+	 <a href="{% url 'student:create_plan' %}">создать новый план</a>
+	 <a href="{% url 'student:delete_all_plans' %}">удалить все</a>
+  </div>
+<table border="1" style="width: 1347px; text-align: center;">
+	<tr>
+		<th>№</th>
+		<th>наименование</th>
+		<th>курс</th>
+		<th>удалить</th>
+		<th>изменить</th>
+	</tr>
+	{% for plan in plans %}
+		<tr>
+			<td>{{ forloop.counter }}</td>
+			<td><a href="{% url 'student:view_plan' plan.pk %}">{{ plan.name }}</a></td>
+			<td>{{ plan.course }}</td>
+			<td><a href="{% url 'student:delete_plan' plan.pk %}">удалить</a></td>
+			<td><a href="{% url 'student:edit_plan' plan.pk %}">изменить</a></td>
+		</tr>
+	{% empty %}
+		<tr>
+			<td colspan="5"><p>Пока нет ни одного созданного учебного плана</p></td>
+		</tr>
+	{% endfor %}
+</table>
+{% endblock %}

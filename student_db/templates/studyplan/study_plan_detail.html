@@ -1,0 +1,110 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/studyplan.css' %}">
+ <div class="func">
+	 <h3>Рабочий учебный план</h3>
+	 <article>Для подготовки в Каракольском профессиональном лицее №14 квалифицированных рабочих <br> из числа выпускников
+		 окончивших основную общую школу (9 классов) по смежным профессиям <br> <b style="font-size: 24px;">"{{ plan.name }}"</b>
+		 <br>язык обучения - русский
+	 </article>
+		 <a href="{% url 'student:all_plans' %}">на главную</a>
+		 <a href="{% url 'student:add_subject_plan' plan_id=plan.pk %}">добавить предмет</a>
+	 	 <button class="print" style="top: 170px; left: 483px;" id="printButton">Печать</button>
+ </div>
+ <table class="iksweb" border="1" style="width: 1347px; position: relative; left: 20px; top: 40px; font-size: 18px;">
+	{% csrf_token %}
+	<tbody>
+		<tr>
+			<td rowspan="5">п/п</td>
+			<td rowspan="5">предметы и циклы</td>
+			<td rowspan="5"><div class="vert-text" style="transform: rotate(-90deg);">экзамены</div></td>
+			<td rowspan="5">всего часов <br> за весь <br> год обучения</td>
+			<td colspan="8" style="text-align: center;">{{ plan.course }} курс</td>
+		</tr>
+		<tr>
+			<td colspan="2">1 семестр </td>
+			<td colspan="2">2 семестр</td>
+			<td rowspan="4">лпз</td>
+			<td rowspan="4">за курс</td>
+			<td rowspan="4">самост. работа</td>
+			<td rowspan="4">выполнить действия</td>
+		</tr>
+		<tr><td colspan="4" style="text-align: center;">недели</td></tr>
+		<tr>
+			<td>10</td>
+			<td>7</td>
+			<td>18</td>
+			<td>4</td>
+		</tr>
+		<tr><td colspan="4" style="text-align: center;">часов в неделю</td></tr>
+		<tr><td colspan="12" style="text-align: center; font-size: 24px;"><b>профессионально-технические предметы</b></td></tr>
+			{% for subject_plan in subject_plans %}
+				{% if subject_plan.cycle == 'профессионально-техническое' %}
+					<tr>
+						<td>{{ subject_plan.number }}</td>
+						<td>{{ subject_plan.subject }}</td>
+						<td></td>
+						<td>{{ subject_plan.total_hours }}</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>{{ subject_plan.lpz_hours }}</td>
+						<td>{{ subject_plan.hours_per_course }}</td>
+						<td>{{ subject_plan.self_study_hours }}</td>
+						<td><a class="links" href="{% url 'student:edit_subject_plan' subject_plan.pk %}">изменить</a><a class="links" href="{% url 'student:delete_subject_plan' subject_plan.pk %}">удалить</a></td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		<tr>
+				<td colspan="3" style="text-align: right;"><b>Итого часов:</b></td>
+				<td><b>{{ total_professional_hours }}</b></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><b>{{ total_lpz_hours }}</b></td>
+				<td><b>{{ total_hours_per_course }}</b></td>
+				<td><b>{{ total_self_study_hours }}</b></td>
+				<td></td>
+			</tr>
+			<tr><td colspan="12" style="text-align: center; font-size: 24px;"><b>образовательные предметы</b></td></tr>
+				{% for subject_plan in subject_plans %}
+					{% if subject_plan.cycle == 'общеобразовательное' %}
+						<tr>
+							<td>{{ subject_plan.number }}</td>
+							<td>{{ subject_plan.subject }}</td>
+							<td></td>
+							<td>{{ subject_plan.total_hours }}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{ subject_plan.lpz_hours }}</td>
+							<td>{{ subject_plan.hours_per_course }}</td>
+							<td>{{ subject_plan.self_study_hours }}</td>
+							<td><a href="{% url 'student:edit_subject_plan' subject_plan.pk %}">изменить</a><a href="{% url 'student:delete_subject_plan' subject_plan.pk %}">удалить</a></td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+	<tr>
+				<td colspan="3" style="text-align: right;"><b>Итого часов:</b></td>
+				<td><b>{{ total_professional_hours }}</b></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><b>{{ total_lpz_hours }}</b></td>
+				<td><b>{{ total_hours_per_course }}</b></td>
+				<td><b>{{ total_self_study_hours }}</b></td>
+		         <td></td>
+			</tr>
+	</tbody>
+</table>
+<script>
+    document.getElementById("printButton").addEventListener("click", function () {
+        window.print();
+    });
+</script>
+{% endblock %}

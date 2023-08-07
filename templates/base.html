@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <title>User DB</title>
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="wrapper-item">
+        <div class="items">
+            <h1>Data<span>Base</span></h1>
+            <div class="nav">
+                <ul class="navi">
+                    <li>User: <p >{{ user }}</p></li>
+                    <li><a href="{% url 'home' %}">Домой</a></li>
+                    <li><a href="{% url 'student:about_us' %}">О нас</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% block content %}
+<div class="title">
+    <h1>
+        Добро пожаловать! Данная программа  была создана для упрощенной работы  и экономии вашего времени. <br> Не скучной работы;)
+    </h1>
+    <div class="btn">
+        <a href="{% url 'student:student_list' %}">Начать работу</a>
+        <a href="{% url 'student:about_us' %}">Ознакомиться</a>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

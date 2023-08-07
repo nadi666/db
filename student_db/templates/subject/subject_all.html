@@ -1,0 +1,63 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/subject_list.css' %}">
+<div class="func">
+    <h1>Предметы</h1>
+      <a href="{% url 'student:subject_create' %}">Добавить</a> <b>|</b>
+      <a href="{% url 'student:subject_filter' %}">Отфильтровать</a>
+      <a href="{% url 'student:subject_list' %}">Показать отдельные таблицы</a>
+      <button class="print" id="printButton">Печать</button>
+  </div>
+  <div class="tables_second">
+    <table border="1" style="width: 1347px;">
+          <tr><th colspan="6">Профессионально - технический предмет</th></tr>
+          <tr >
+              <th>Название</th>
+              <th>Учитель</th>
+              <th>Всего часов</th>
+              <th>Специальность</th>
+              <th>Изменить</th>
+              <th>Удалить</th>
+          </tr>
+          {% for subject in technical_subject %}
+              <tr><td>{{ subject.name }}</td>
+                  <td>{{ subject.teacher }}</td>
+                  <td>{{ subject.all_hour }}</td>
+                  <td>{{ subject.specialization }}</td>
+                  <td><a href="{% url 'student:subject_update' pk=subject.pk %}">изменить</a></td>
+                  <td>
+                      <form method="POST" action="{% url 'student:delete_subject' subject.pk %}">{% csrf_token %}<button class="btn" type="submit">Удалить</button></form>
+                  </td>
+              </tr>
+        {% endfor %}
+    </table>
+      <table  border="1" style="width: 1347px;">
+        <tr><th colspan="6">Общеобразовательный предмет</th></tr>
+              <tr >
+                  <th>Название</th>
+                  <th>Учитель</th>
+                  <th>Всего часов</th>
+                  <th>Специальность</th>
+                  <th>Изменить</th>
+                  <th>Удалить</th>
+              </tr>
+              {% for subject in general_subject %}
+                  <tr><td>{{ subject.name }}</td>
+                      <td>{{ subject.teacher }}</td>
+                      <td>{{ subject.all_hour }}</td>
+                      <td>{{ subject.specialization }}</td>
+                      <td><a href="{% url 'student:subject_update' pk=subject.pk %}">изменить</a></td>
+                      <td>
+                      <form method="POST" action="{% url 'student:delete_subject' subject.pk %}">{% csrf_token %}<button class="btn" type="submit">Удалить</button></form>
+                  </td>
+                  </tr>
+            {% endfor %}
+      </table>
+  </div>
+<script>
+    document.getElementById("printButton").addEventListener("click", function () {
+        window.print();
+    });
+</script>
+{% endblock %}

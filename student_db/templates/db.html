@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/db.css' %}">
+    <title>User DB</title>
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="wrapper-item">
+        <div class="items">
+            <h1>Data<span>Base</span></h1>
+            <div class="nav">
+                <ul class="navi">
+                    <li>User: <p >{{ user }}</p></li>
+                    <li><a href="{% url 'home' %}">Домой</a></li>
+                    <li><a href="{% url 'student:about_us' %}">О нас</a></li>
+                </ul>
+            </div>
+            <div class="log">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}">выход</a>
+                {% else %}
+                    <a href="{% url 'login' %}">войти</a> |
+                    <a href="{% url 'register' %}">регистрация</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+  <div class="menu" id="sidebar">
+    <ul class="link">
+        <li><a href="{% url 'student:student_list' %}"><img src="{% static 'image/free-icon-team-5027784.png' %}" alt=""><span>студент</span></a></li>
+        <li><a href="{% url 'student:teacher_list' %}"><img src="{% static 'image/free-icon-classroom-10748283.png' %}" alt=""><span>учитель</span></a></li>
+        <li><a href="{% url 'student:subject_list' %}"><img src="{% static 'image/free-icon-reading-book-4072161.png' %}" class="redd" alt=""><span>предмет</span></a></li>
+        <li><a href="{% url 'student:speciality_list' %}"><img src="{% static 'image/free-icon-job-promotion-9568817.png' %}" alt=""><span>специальность</span></a></li>
+        <li><a href="{% url 'student:all_plans' %}"><img src="{% static 'image/free-icon-list-8456056.png' %}" alt=""><span>план</span></a></li>
+    </ul>
+  </div>
+  <div class="content">
+    <div class="menu-toggle" onclick="toggleSidebar()">
+      <span></span>
+    </div>
+      {% block content %} {% endblock %}
+  </div>
+    <script>
+        function toggleSidebar() {
+          var sidebar = document.getElementById('sidebar');
+          sidebar.classList.toggle('open');
+        }
+      </script>
+</body>
+</html>

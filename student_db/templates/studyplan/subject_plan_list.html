@@ -1,0 +1,14 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+<main class="main">
+  <h1>plan</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Сохранить</button>
+  </form>
+  <a href="{% url 'student:all_plans' %}">Закрыть</a>
+</main>
+{% endblock content %}

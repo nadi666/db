@@ -1,0 +1,74 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/filter.css' %}">
+<main class="main">
+    <div class="func">
+       <h1>Фильтрация</h1>
+        <div class="btn">
+            <a class="button" href="{% url 'student:student_list' %}">вернуться на главную</a>
+            <a class="button" href="{% url 'student:student_create' %}">добавить студента</a>
+            <button class="print" id="printButton">Печать</button>
+        </div>
+        <form class="filter" method="POST">
+            {% csrf_token %}
+            <label for="speciality">Специальность:</label>
+            <select id="speciality" name="speciality">
+                <option value="">все</option>
+                {% for speciality in specialities %}
+                    <option value="{{ speciality.pk }}">{{ speciality.name }}</option>
+                {% endfor %}
+            </select>
+            <label for="form_education">Форма обучения:</label>
+            <select id="form_education" name="form_education">
+                <option value="">все</option>
+                <option value="контракт">контракт</option>
+                <option value="бюджет">бюджет</option>
+            </select>
+                <label for="age">Возраст:</label>
+                <input type="number" id="age" name="age" placeholder="гггг">
+            <label for="sex">Пол:</label>
+            <select id="sex" name="sex">
+                <option value="">все</option>
+                <option value="man">мужчина</option>
+                <option value="woman">женщина</option>
+            </select>
+            <label for="course">Курс:</label>
+            <input type="number" id="course" name="course">
+            <br>
+            <button type="submit">Фильтр</button>
+        </form>
+    </div>
+{% if students %}
+   <table border="1">
+       <tr>
+           <th>№</th>
+           <th>ФИО</th>
+           <th>Возраст</th>
+           <th>Пол</th>
+           <th>Специальность</th>
+           <th>Форма обучения</th>
+           <th>Курс</th>
+       </tr>
+       {% for student in students %}
+           <tr>
+               <td>{{ forloop.counter }}</td>
+               <td>{{ student.middle_name }} {{ student.name }} {{ student.last_name }}</td>
+               <td>{{ student.age }}</td>
+               <td>{{ student.sex }}</td>
+               <td>{{ student.speciality }}</td>
+               <td>{{ student.form_education }}</td>
+               <td>{{ student.course }}</td>
+           </tr>
+       {% endfor %}
+   </table>
+{% else %}
+    <div class="message"><p>Нет данных, удовлетворяющих заданным критериям!</p></div>
+{% endif %}
+</main>
+<script>
+    document.getElementById("printButton").addEventListener("click", function () {
+        window.print();
+    });
+</script>
+{% endblock %}

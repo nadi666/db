@@ -1,0 +1,248 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #d7d7d7;
+    color: black;
+    font-family: 'Courier New', monospace;
+}
+.main-wrapper{
+    max-width: 1800px;
+    height: 100px;
+    position: relative;
+    left: 50px;
+    top: 0;
+}
+.wrapper-item{
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    top: 5px;
+}
+.wrapper-item .items{
+    position: absolute;
+    display: flex;
+    top: 20px;
+    justify-content: space-around;
+    width: 84%;
+    height: 50px;
+}
+.wrapper-item .items h1{
+    font-size: 36px;
+}
+.wrapper-item .items span{
+    background-image: linear-gradient(90deg, #6923d8, #ad25d3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.nav{
+    display: flex;
+    width: 900px;
+    height: 50px;
+}
+.nav .navi{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 70%;
+    height: 100%;
+    align-items: center;
+    transition-duration: .5s;
+}
+.nav ul li,
+.nav ul li a{
+    list-style: none;
+    color: black;
+    text-decoration: none;
+    display: block;
+    font-size: 22px;
+}
+.nav ul li a:hover{
+    border: 1px solid white;
+    border-radius: 5px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    transition-duration: .5s;
+    padding: 7px 10px;
+}
+.nav ul li p{
+    display: inline-block;
+    text-decoration: underline;
+}
+.log{
+    position: absolute;
+    width: 287px;
+    height: 50px;
+    top: 1px;
+    right: -226px;
+}
+.log *{
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    padding: 15px 20px;
+}
+.log *:hover{
+    cursor: pointer;
+    border-radius: 7px;
+    background: linear-gradient(90deg, #6923d8, #ad25d3);
+    color: white;
+    transition-duration: .5s;
+}
+.menu {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 250px;
+      color: black;
+      padding: 20px;
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(-250px);
+    }
+    .menu .link{
+       margin-top: 150px;
+    cursor: pointer;
+    display: flex;
+     justify-content: center;
+    flex-direction: column;
+    width: 225px;
+    height: 221px;
+    }
+        .link li{
+        display: block;
+        width: 26px;
+        height: 2px;
+        margin: 36px 0;
+        transition-duration: .5s;
+    }
+    .menu li a{
+         cursor: pointer;
+    width: 225px;
+    height: 30px;
+    overflow: hidden;
+    transition: .5s;
+    display: flex;
+    text-decoration: none;
+    transition-duration: .5s;
+    }
+    .menu li span{
+        color: black;
+    font-size: 20px;
+    transition: .5s;
+    align-items: center;
+    text-decoration: none;
+    padding-left: 12px;
+    letter-spacing: 2.4px;
+    }
+
+    .menu.open {
+      transform: translateX(0);
+    }
+    .content {
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      left: 20px;
+      top: 112px;
+      cursor: pointer;
+      z-index: 1;
+    }
+    .menu-toggle span,
+    .menu-toggle span:before,
+    .menu-toggle span:after {
+      display: block;
+      background: #fff;
+      height: 6px;
+      width: 80px;
+      transition: transform 0.3s ease-in-out;
+    }
+    .menu-toggle.open span {
+      transform: rotate(45deg);
+    }
+
+    .menu-toggle.open span:before {
+      transform: rotate(-45deg) translate(-5px, 5px);
+    }
+
+    .menu-toggle.open span:after {
+      opacity: 0;
+    }
+
+    @media (max-width: 768px) {
+      .menu {
+        width: 200px;
+      }
+
+      .content {
+        margin-left: 200px;
+      }
+    }
+.main{
+  background: #000;
+  width: 473px;
+  height: 500px;
+  position: absolute;
+  border-radius: 5px;
+  top: 197px;
+  left: 694px;
+  box-shadow: 0 0 5px #000,
+              0 0 5px #000,
+              0 0 5px #000,
+              0 0 5px #000;
+}
+.main h1{
+  font-size: 36px;
+  font-weight: 600;
+  text-align: center;
+  padding-top: 50px;
+  color: white;
+}
+.forms button{
+  border: 1px solid rgb(170, 162, 162);
+  background: transparent;
+  display: block;
+  position: absolute;
+  top: 269px;
+  width: 80%;
+  color: white;
+  border-radius: 5px;
+  left: 48px;
+  height: 63px;
+  font-size: 24px;
+  letter-spacing: 4px;
+  transition-duration: .5s;
+}
+.forms button:hover{
+  border: none;
+  box-shadow: 0 0 8px #2cd10a,
+              0 0 4px #2cd10a,
+              0 0 51px #2cd10a,
+              0 0 118px #2cd10a;
+  transition-duration: .5s;
+}
+.links{
+  display: block;
+  position: absolute;
+  bottom: 51px;
+  left: 178px;
+}
+.links a{
+  font-size: 28px;
+  transition-duration: .5s;
+  text-decoration: none;
+  background-image: linear-gradient(90deg, #6200ff, #c800ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.links a:hover{
+  border-bottom: 1px solid #8c00ff;
+  transition-duration: .5s;
+}

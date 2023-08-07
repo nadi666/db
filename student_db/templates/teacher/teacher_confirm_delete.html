@@ -1,0 +1,9 @@
+{% extends 'db.html' %}
+{% block content %}
+  <h1>Удалить "{{ teacher.name }} {{ teacher.middle_name }} {{ teacher.last_name }}"?</h1>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Удалить</button>
+  </form>
+  <a href="{% url 'student:teacher_list' %}">Закрыть</a>
+{% endblock content %}

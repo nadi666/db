@@ -1,0 +1,60 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/filter.css' %}">
+<main class="main">
+    <div class="func">
+       <h1>Фильтрация</h1>
+        <div class="btn">
+            <a class="button" href="{% url 'student:teacher_list' %}">вернуться на главную</a>
+            <a class="button" href="{% url 'student:teacher_new' %}">добавить учителя</a>
+            <button class="print" id="printButton">Печать</button>
+        </div>
+        <form class="filter" method="GET">
+            <label for="subject">Предмет:</label>
+            <input type="text" id="subject" name="subject">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name">
+            <label for="middle_name">Фамилия:</label>
+            <input type="text" id="middle_name" name="middle_name">
+            <label for="last_name">Отчество:</label>
+            <input type="text" id="last_name" name="last_name">
+            <label for="work">Кто:</label>
+            <select name="work" id="work">
+                <option value="">все</option>
+                <option value="мастер">мастер</option>
+                <option value="учитель">учитель</option>
+            </select>
+            <br>
+            <button type="submit">Фильтр</button>
+        </form>
+    </div>
+{% if teachers %}
+   <table border="1">
+       <tr>
+           <th>№</th>
+           <th>ФИО</th>
+           <th>Предмет</th>
+           <th>Кто</th>
+           <th>Контактные данные</th>
+       </tr>
+       {% for teacher in teachers %}
+           <tr>
+               <td>{{ forloop.counter }}</td>
+               <td>{{ teacher.middle_name }} {{ teacher.name }} {{ teacher.last_name }}</td>
+               <td>{{ teacher.subject }}</td>
+               <td>{{ teacher.work }}</td>
+               <td>{{ teacher.phone }}</td>
+           </tr>
+       {% endfor %}
+   </table>
+{% else %}
+   <div class="message"><p>Нет данных, удовлетворяющих заданным критериям!</p></div>
+{% endif %}
+</main>
+<script>
+    document.getElementById("printButton").addEventListener("click", function () {
+        window.print();
+    });
+</script>
+{% endblock %}

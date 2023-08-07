@@ -1,0 +1,336 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #d7d7d7;
+    color: black;
+    font-family: 'Courier New', monospace;
+}
+.menu {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 250px;
+      color: black;
+      padding: 20px;
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(-250px);
+    }
+    .menu .link{
+       margin-top: 150px;
+       cursor: pointer;
+        display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 225px;
+    height: 221px;
+    }
+        .link li{
+        display: block;
+        width: 26px;
+        height: 2px;
+        margin: 36px 0;
+        transition: 0.5s;
+    }
+    .menu li a{
+         cursor: pointer;
+    width: 225px;
+    height: 30px;
+    overflow: hidden;
+    transition: .5s;
+    display: flex;
+    text-decoration: none;
+    }
+    .menu li span{
+        color: black;
+    font-size: 20px;
+    transition: .5s;
+    align-items: center;
+    text-decoration: none;
+    padding-left: 12px;
+    letter-spacing: 2.4px;
+    }
+
+    .menu.open {
+      transform: translateX(0);
+    }
+    .content {
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      left: 20px;
+      top: 112px;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .menu-toggle span,
+    .menu-toggle span:before,
+    .menu-toggle span:after {
+      display: block;
+      background: #fff;
+      height: 6px;
+      width: 80px;
+      transition: transform 0.3s ease-in-out;
+    }
+    .menu-toggle.open span {
+      transform: rotate(45deg);
+    }
+
+    .menu-toggle.open span:before {
+      transform: rotate(-45deg) translate(-5px, 5px);
+    }
+
+    .menu-toggle.open span:after {
+      opacity: 0;
+    }
+
+    @media (max-width: 768px) {
+      .menu {
+        width: 200px;
+      }
+
+      .content {
+        margin-left: 200px;
+      }
+    }
+    .main-wrapper{
+    max-width: 1800px;
+    height: 100px;
+    position: relative;
+    left: 50px;
+    top: 0;
+}
+.wrapper-item{
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    top: 5px;
+}
+.wrapper-item .items{
+    position: absolute;
+    display: flex;
+    top: 20px;
+    justify-content: space-around;
+    width: 84%;
+    height: 50px;
+}
+.wrapper-item .items h1{
+    font-size: 36px;
+}
+.wrapper-item .items span{
+    background-image: linear-gradient(90deg, #6923d8, #ad25d3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.nav{
+    display: flex;
+    width: 900px;
+    height: 50px;
+}
+.nav .navi{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 70%;
+    height: 100%;
+    align-items: center;
+    transition-duration: .5s;
+}
+.nav ul li,
+.nav ul li a{
+    list-style: none;
+    color: black;
+    text-decoration: none;
+    display: block;
+    font-size: 22px;
+    transition-duration: .5s;
+}
+.nav ul li a:hover{
+    border: 1px solid white;
+    border-radius: 5px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    padding: 7px 10px;
+    transition-duration: .5s;
+}
+.nav ul li p{
+    display: inline-block;
+    text-decoration: underline;
+}
+.log{
+    position: absolute;
+    width: 287px;
+    height: 50px;
+    top: 1px;
+    right: -226px;
+}
+.log *{
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    padding: 15px 20px;
+}
+.log *:hover{
+    cursor: pointer;
+    border-radius: 7px;
+    background: linear-gradient(90deg, #6923d8, #ad25d3);
+    color: white;
+    transition-duration: .5s;
+}
+    body{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+.main{
+        position: relative;
+        width: 1500px;
+        height: 90%;
+        left: 213px;
+        top: 16px;
+}
+.main h1{
+        position: absolute;
+        font-size: 38px;
+        font-weight: 700;
+        letter-spacing: 10px;
+        padding-left: 15px;
+}
+.func{
+    position: relative;
+    width: 1317px;
+    height: 235px;
+    top: 20px;
+    right: 178px;
+}
+.btn{
+    width: 1300px;
+    height: 148px;
+}
+.btn .button{
+    border: 1px solid #9f9f9fe0;
+    padding: 9px 3px;
+    border-radius: 5px;
+    background: #9f9f9fe0;
+    display: inline-block;
+    position: relative;
+    top: 55px;
+    left: -9px;
+    text-align: center;
+    font-size: 20px;
+}
+.btn a{
+    margin: 20px ;
+        color: black;
+        font-size: 18px;
+        font-weight: 400;
+        letter-spacing: 1.5px;
+        align-items: center;
+        text-decoration: none;
+}
+.btn a:hover{
+        color: #fff;
+        border: 1px solid #96923d8;
+        border-radius: 5px;
+        transition: .3s;
+        background: #9f9f9f;
+}
+.func .print{
+    position: absolute;
+    display: block;
+    left: 608px;
+    transition-duration: .5s;
+    top: 77px;
+}
+.func button{
+        background: transparent;
+        border: none;
+        padding: 10px 24px;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 3px;
+        border-radius: 5px;
+        transition-duration: .5s;
+    }
+    .func button:hover{
+        background: linear-gradient(90deg,  #ad25d3, #6923d8);
+        color: white;
+        transition-duration: .5s;
+    }
+  .func .filter{
+    width: 1376px;
+    height: 107px;
+    position: absolute;
+    display: block;
+    top: 157px;
+}
+.filter label{
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+}
+.func .filter select,
+.func .filter select option{
+    margin-right: 10px;
+    font-size: 15px;
+    outline: none;
+    border: none;
+    padding: 10px;
+}
+.func .filter input{
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+.func .filter input:hover{
+    border: none;
+}
+.func .filter button{
+    font-size: 18px;
+    border: none;
+    padding: 12px;
+    margin: 13px 0 10px 0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #6923d8, #ad25d3);
+    color: #fff;
+    transition-duration: .5s;
+}
+.func .filter button:hover{
+    color: #fff;
+    transition-duration: .5s;
+    background: linear-gradient(90deg,  #ad25d3, #6923d8);;
+}
+.main table{
+    margin: 0 auto;
+    width: 85%;
+    position: absolute;
+    top: 313px;
+    left: -176px;
+}
+.main table th, tr, td{
+    padding: 10px;
+    color: #151512;
+}
+.main .message{
+    width: 784px;
+    height: 46px;
+    position: absolute;
+    top: 299px;
+    left: 69px;
+}
+.main p{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 5px;
+    font-weight: 700;
+}

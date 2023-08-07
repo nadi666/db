@@ -1,0 +1,42 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/list.css' %}">
+  <div class="func">
+    <h1>Учителя</h1>
+      <a href="{% url 'student:teacher_new' %}">Добавить</a> <b>|</b>
+      <a href="{% url 'student:teacher_filter' %}">Отфильтровать</a>
+      <button id="printButton">Печать</button>
+  </div>
+      <table border="1" style="width: 1347px;">
+          <tr>
+              <th>ФИО</th>
+              <th>Предмет</th>
+              <th>Кто</th>
+              <th>Номер телефона</th>
+              <th>Изменить</th>
+              <th>Удалить</th>
+          </tr>
+          {% for teacher in teachers %}
+          <tr><td>{{ teacher.middle_name }} {{ teacher.name }} {{ teacher.last_name }}</td>
+              <td>{{ teacher.subject }}</td>
+              <td>{{ teacher.work }}</td>
+              <td>{{ teacher.phone }}</td>
+              <td><a href="">изменить</a></td>
+              <td>
+                  <form method="POST" action="{% url 'student:teacher_delete' teacher.pk %}">{% csrf_token %}<button class="btn" type="submit">Удалить</button></form>
+              </td>
+          </tr>
+        {% empty %}
+          <tr>
+              <td colspan="6" style="padding: 15px;
+                                       text-align: center;">Вы ещё ничего не создали.</td>
+          </tr>
+        {% endfor %}
+    </table>
+<script>
+    document.getElementById("printButton").addEventListener("click", function () {
+        window.print();
+    });
+</script>
+{% endblock content%}

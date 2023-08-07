@@ -1,0 +1,74 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/filter.css' %}">
+<main class="main">
+    <div class="func">
+       <h1>Фильтрация</h1>
+        <div class="btn">
+            <a class="button" href="{% url 'student:speciality_list' %}">вернуться на главную</a>
+            <a class="button" href="{% url 'student:create_speciality' %}">добавить специальность</a>
+            <button class="print" style="left: 660px;" id="printButton">Печать</button>
+        </div>
+        <form class="filter" method="POST">
+            {% csrf_token %}
+            <label for="speciality">Специальность:</label>
+            <select name="speciality" id="speciality">
+                <option value="">все</option>
+                {% for speciality in specialities %}
+                    <option value="{{ speciality.pk }}">{{ speciality.name }}</option>
+                {% endfor %}
+            </select>
+            <label for="teacher">Учитель:</label>
+            <select name="teacher" id="teacher">
+                <option value="">все</option>
+                {% for teacher in teachers %}
+                <option value="{{ teacher.pk }}">{{ teacher.middle_name }} {{ teacher.name }} {{ teacher.last_name }}</option>
+                {% endfor %}
+            </select>
+            <label for="education_form">Обучение:</label>
+            <select id="education_form" name="education_form">
+                <option value="">все</option>
+                <option value="контракт">контракт</option>
+                <option value="бюджет">бюджет</option>
+            </select>
+            <label for="course">Срок</label>
+            <select id="course" name="course">
+                <option value="">все</option>
+                <option value="three">3 года</option>
+                <option value="ten">10 месяцев (после 9)</option>
+                <option value="ten_after">10 месяцев (после 9 и 11)</option>
+            </select>
+            <br>
+            <button type="submit">Фильтр</button>
+        </form>
+    </div>
+{% if specialities %}
+   <table border="1">
+       <tr>
+           <th>№</th>
+           <th>Наименование</th>
+           <th>Учитель</th>
+           <th>Вид обучения</th>
+           <th>Срок обучения</th>   
+       </tr>
+       {% for speciality in specialities %}
+           <tr>
+               <td>{{ forloop.counter }}</td>
+               <td>{{ speciality.name }}</td>
+               <td>{{ speciality.teacher }}</td>
+               <td>{{ speciality.education_form }}</td>
+               <td>{{ speciality.course }}</td>
+           </tr>
+       {% endfor %}
+   </table>
+{% else %}
+   <div class="message"><p>Нет данных, удовлетворяющих заданным критериям!</p></div>
+{% endif %}
+</main>
+<script>
+    document.getElementById("printButton").addEventListener("click", function () {
+        window.print();
+    });
+</script>
+{% endblock %}

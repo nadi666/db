@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<div class="title">
+    <h1>
+        Добро пожаловать! Данная программа  была создана для упрощенной работы  и экономии вашего времени. <br> Не скучной работы;)
+    </h1>
+    {% if user.is_authenticated %}
+    <div class="btn">
+        <a href="{% url 'student:student_list' %}">Начать работу</a>
+        <a href="{% url 'student:about_us' %}">Ознакомиться</a>
+    </div>
+    {% endif %}
+</div>
+</div>
+<div class="log">
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">выйти</a>
+    {% else %}
+        <a href="{% url 'login' %}">войти</a> |
+        <a href="{% url 'register' %}">регистрация</a>
+    {% endif %}
+</div>
+<div class="imag">
+    <img style="width: 500px; height: 720px; position: absolute; z-index: 3;" src="{% static 'image/Mask group.png' %}" alt="image">
+    <img style="width: 411.76px; height: 601.26px; transform: rotate(12deg); z-index: 2; position: absolute; top: 106px; left: 270px;" src="{% static 'image/Mask group (1).png' %}" alt="image">
+    <img style="width: 323.53px; height: 483.38px; display: block; transform: rotate(18deg); z-index: 1; position: absolute; top: 248px; left: 402px;" src="{% static 'image/Mask group (2).png' %}" alt="image">
+</div>
+{% endblock %}

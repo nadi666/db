@@ -1,0 +1,59 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/filter.css' %}">
+<main class="main">
+    <div class="func">
+       <h1>Фильтрация</h1>
+        <div class="btn">
+            <a class="button" href="{% url 'student:subject_list' %}">вернуться на главную</a>
+            <a class="button" href="{% url 'student:subject_create' %}">добавить предмет</a>
+            <button class="print" id="printButton">Печать</button>
+        </div>
+        <form class="filter" method="POST">
+            {% csrf_token %}
+            <label for="teacher">Учитель:</label>
+             <select id="teacher" name="teacher">
+                <option value="">все</option>
+                {% for teacher in teachers %}
+                    <option value="{{ teacher.pk }}">{{ teacher.middle_name }} {{ teacher.name }} {{ teacher.last_name }}</option>
+                {% endfor %}
+            </select>
+            <label for="name">Предмет:</label>
+            <input type="text" id="name" name="name">
+            <label for="course">Курс:</label>
+            <input type="number" id="course" name="course"><br>
+            <button type="submit">Фильтр</button>
+        </form>
+    </div>
+{% if subjects %}
+   <table border="1">
+       <tr>
+           <th>№</th>
+           <th>ФИО</th>
+           <th>Предмет</th>
+           <th>Всего часов</th>
+           <th>Специальность</th>
+           <th>Курс</th>
+       </tr>
+       {% for subject in subjects %}
+           <tr>
+               <td>{{ forloop.counter }}</td>
+               <td>{{ subject.teacher }}</td>
+               <td>{{ subject.name }}</td>
+               <td>{{ subject.all_hour }}</td>
+               <td>{{ subject.specialization }}</td>
+               <td>{{ subject.course }}</td>
+           </tr>
+       {% endfor %}
+   </table>
+{% else %}
+   <div class="message"><p>Нет данных, удовлетворяющих заданным критериям!</p></div>
+{% endif %}
+</main>
+<script>
+    document.getElementById("printButton").addEventListener("click", function () {
+        window.print();
+    });
+</script>
+{% endblock %}

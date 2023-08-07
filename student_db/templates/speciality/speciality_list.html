@@ -1,0 +1,45 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/list.css' %}">
+  <div class="func">
+    <h1>Специальность</h1>
+      <a href="{% url 'student:create_speciality' %}">Добавить</a> <b>|</b>
+      <a href="{% url 'student:speciality_filter' %}">Отфильтровать</a>
+      <button id="printButton">Печать</button>
+  </div>
+      <table border="1" width="1347px">
+          <tr >
+              <th>Название</th>
+              <th>Учитель</th>
+              <th>вид обучение</th>
+              <th>срок обучение</th>
+              <th>на базе</th>
+              <th>Изменить</th>
+              <th>Удалить</th>
+          </tr>
+          {% for speciality in specialities %}
+              <tr><td>{{ speciality.name }}</td>
+                  <td>{{ speciality.teacher }}</td>
+                  <td>{{ speciality.education_form }}</td>
+                  <td>{{ speciality.course }}</td>
+                  <td>{{ speciality.for_edu }} класса</td>
+                  <td><a href="">изменить</a></td>
+                  <td>
+                      <form method="POST" action="{% url 'student:speciality_delete' speciality.pk %}">{% csrf_token %}<button class="btn" type="submit">Удалить</button></form>
+                  </td>
+              </tr>
+          {% empty %}
+              <tr>
+                <td colspan="7" style="padding: 15px;
+                                       text-align: center;">Вы ещё ничего не создали.</td>
+              </tr>
+          {% endfor %}
+    </table>
+<script>
+    document.getElementById("printButton").addEventListener("click", function () {
+        window.print();
+    });
+</script>
+{% endblock content %}
+

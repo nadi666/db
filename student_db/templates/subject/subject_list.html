@@ -1,0 +1,145 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/subject_list.css' %}">
+  <div class="func">
+    <h1>Предметы</h1>
+      <a href="{% url 'student:subject_create' %}">Добавить</a> <b>|</b>
+      <a href="{% url 'student:subject_filter' %}">Отфильтровать</a>
+      <!--<button class="btn" id="toggle-subjects" onclick="toggleSubjects()">Показать все предметы</button>-->
+      <a href="{% url 'student:subject_all' %}">Показать все предметы</a>
+      <button id="printButton">Печать</button>
+  </div>
+<div id="subject-tables" class="tables">
+    {% for specialization in specializations %}
+        <h1>{{ specialization.name }}</h1>
+        <div class="tables-container">
+            <table class="subject-table" border="1" style="width: 1347px;">
+                <tr><th colspan="7">профессионально-техническое</th></tr>
+                <tr>
+                    <th>название</th>
+                    <th>курс</th>
+                    <th>учитель</th>
+                    <th>общее кол-во часов</th>
+                    <th>часы за курс обучения</th>
+                    <th>изменить</th>
+                    <th>удалить</th>
+                </tr>
+                    {% for subject in technical_subject %}
+                        {% if subject.specialization == specialization and subject.cycle == 'профессионально-техническое' %}
+                            <tr>
+                                <td>{{ subject.name }}</td>
+                                <td>{{ subject.course }}</td>
+                                <td>{{ subject.teacher }}</td>
+                                <td>{{ subject.all_hour }}</td>
+                                <td>{{ subject.course_time }}</td>
+                                <td><a href="{% url 'student:subject_update' pk=subject.pk %}">изменить</a></td>
+                                <td><form method="POST" action="{% url 'student:delete_subject' subject.pk %}">{% csrf_token %}<button class="btn" type="submit">Удалить</button></form></td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+            </table>
+        </div>
+        <div class="tables-container">
+            <table class="subject-table" border="1" style="width: 1347px;">
+                <tr><th colspan="7">общеобразовательное</th></tr>
+                <tr>
+                    <th>название</th>
+                    <th>курс</th>
+                    <th>учитель</th>
+                    <th>общее кол-во часов</th>
+                    <th>часы за курс обучения</th>
+                    <th>изменить</th>
+                    <th>удалить</th>
+                </tr>
+                    {% for subject in specialization.subject_set.all %}
+                        {% if subject.specialization == specialization and subject.cycle == 'общеобразовательное' %}
+                            <tr>
+                                <td>{{ subject.name }}</td>
+                                <td>{{ subject.course }}</td>
+                                <td>{{ subject.teacher }}</td>
+                                <td>{{ subject.all_hour }}</td>
+                                <td>{{ subject.course_time }}</td>
+                                <td><a href="{% url 'student:subject_update' pk=subject.pk %}">изменить</a></td>
+                                <td><form method="POST" action="{% url 'student:delete_subject' subject.pk %}">{% csrf_token %}<button class="btn" type="submit">Удалить</button></form></td>
+                            </tr>
+                        {% endif %}
+                        {% empty %}
+                            <tr><td colspan='7'><p>you didn't create something</p></td></tr>
+                   {% endfor %}
+            </table>
+            {% empty %}
+            <p>Вы еще ничего не создали</p>
+        </div>
+    {% endfor %}
+</div>
+ <div class="tables_second" id="all-subjects" style="display: none;">
+    <table border="1" style="width: 1347px;">
+          <tr><th colspan="6">Профессионально - технический предмет</th></tr>
+          <tr >
+              <th>Название</th>
+              <th>Учитель</th>
+              <th>Всего часов</th>
+              <th>Специальность</th>
+              <th>Изменить</th>
+              <th>Удалить</th>
+          </tr>
+          {% for subject in technical_subject %}
+              <tr><td>{{ subject.name }}</td>
+                  <td>{{ subject.teacher }}</td>
+                  <td>{{ subject.all_hour }}</td>
+                  <td>{{ subject.specialization }}</td>
+                  <td><a href="{% url 'student:subject_update' pk=subject.pk %}">изменить</a></td>
+                  <td>
+                      <form method="POST" action="{% url 'student:delete_subject' subject.pk %}">{% csrf_token %}<button class="btn" type="submit">Удалить</button></form>
+                  </td>
+              </tr>
+        {% endfor %}
+    </table>
+      <table  border="1" style="width: 1347px;">
+        <tr><th colspan="6">Общеобразовательный предмет</th></tr>
+              <tr >
+                  <th>Название</th>
+                  <th>Учитель</th>
+                  <th>Всего часов</th>
+                  <th>Специальность</th>
+                  <th>Изменить</th>
+                  <th>Удалить</th>
+              </tr>
+              {% for subject in general_subject %}
+                  <tr><td>{{ subject.name }}</td>
+                      <td>{{ subject.teacher }}</td>
+                      <td>{{ subject.all_hour }}</td>
+                      <td>{{ subject.specialization }}</td>
+                      <td><a href="{% url 'student:subject_update' pk=subject.pk %}">изменить</a></td>
+                      <td>
+                        <form method="POST" action="{% url 'student:delete_subject' subject.pk %}">{% csrf_token %}<button class="btn" type="submit">Удалить</button></form>
+                      </td>
+                  </tr>
+              {% endfor %}
+      </table>
+  </div>
+ <script>
+    function toggleSubjects() {
+        var subjectTables = document.getElementById('subject-tables');
+        var allSubjects = document.getElementById('all-subjects');
+        var toggleButton = document.getElementById('toggle-subjects');
+
+        if (subjectTables.style.display === 'none') {
+            subjectTables.style.display = 'block';
+            allSubjects.style.display = 'none';
+            toggleButton.textContent = 'Показать все предметы';
+        } else {
+            subjectTables.style.display = 'none';
+            allSubjects.style.display = 'block';
+            toggleButton.textContent = 'Показать отдельные таблицы';
+      };
+    };
+  </script>
+<script>
+    document.getElementById("printButton").addEventListener("click", function () {
+        window.print();
+    });
+</script>
+{% endblock content %}
+

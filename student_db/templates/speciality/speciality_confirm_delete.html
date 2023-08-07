@@ -1,0 +1,11 @@
+{% extends 'db.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/delete.css' %}">
+  <h1>Удалить "{{ speciality.name }}"?</h1>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Удалить</button>
+  </form>
+  <a href="{% url 'student:speciality_list' %}">Закрыть</a>
+{% endblock content %}
