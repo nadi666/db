@@ -75,14 +75,5 @@ class SubjectPlan(models.Model):
     self_study_hours = models.IntegerField(default='0')
     hours_per_course = models.IntegerField(null=True)
 
-    def save(self, *args, **kwargs):
-        # If the subject doesn't have a number yet, assign the next available number
-        if not self.number:
-            max_number = SubjectPlan.objects.filter(plan=self.plan, cycle=self.cycle).aggregate(
-                models.Max('number')
-            )['number__max']
-            self.number = (max_number or 0) + 1
-        super().save(*args, **kwargs)
-
     def __str__(self):
         return self.specialization
