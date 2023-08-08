@@ -23,19 +23,7 @@ def student_create(request):
         form = StudentForm()
     return render(request, 'student_db/student_form.html', {'form': form})
 
-def student_update(request, pk):
-    student = get_object_or_404(Student, pk=pk)
-    form = StudentForm(request.POST or None, instance=student)
-    context = {'form': form}
-    if form.is_valid():
-        form.save()
-        return redirect('student:student_list')
-    return render(request, 'student_db/student_form.html', context)
 
-def delete_student(request, pk):
-    student = get_object_or_404(Student, pk=pk)
-    student.delete()
-    return redirect('student:student_list')
 
 def student_filter(request):
     specialities = Speciality.objects.all()
