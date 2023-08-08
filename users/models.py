@@ -8,7 +8,7 @@ class User(AbstractUser):
         unique=True,
     )
 
-    email_verify = models.BooleanField(default=False)
+    verify_email = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
