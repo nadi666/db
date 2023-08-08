@@ -27,36 +27,7 @@ class EmailVerify(View):
             return redirect('home')
         return redirect('invalid_verify')
 
-    @staticmethod
-    def get_user(uid64):
-        try:
-            uid = urlsafe_base64_decode(uid64).decode()
-            user = User.objects.get(pk=uid)
-        except (TypeError, ValueError, OverflowError,
-                User.DoesNotExist, ValidationError):
-            user = None
-        return user
-
 
 class Register(View):
     template_name = 'registration/register.html'
-
-    def get(self, request):
-        context = {
-            'form': UserCreationForm()
-        }
-        return render(request, self.template_name, context)
-
-    def post(self, request):
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(email=email, password=password)
-            send_email_for_verify(request, user)
-            return redirect('confirm_email')
-        context = {
-            "form": form
-        }
-        return render(request, self.template_name, context)
+    render(request, self.template_name, context)
